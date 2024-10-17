@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satofit - Walk and Earn Bitcoin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f0f0f0;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Layout */
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .section {
+        padding: 60px 0;
+      }
+
+      /* Typography */
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      h1 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 2rem;
+        color: #f7931a;
+      }
+      h3 {
+        font-size: 1.5rem;
+      }
+      p {
+        margin-bottom: 15px;
+        font-size: 1rem;
+      }
+
+      /* Header */
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        z-index: 1000;
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #f7931a;
+      }
+      .nav-toggle {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #f7931a;
+      }
+      .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .nav.active {
+        display: block;
+      }
+      .nav ul {
+        list-style: none;
+      }
+      .nav li {
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .nav a {
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+      .nav a:hover {
+        color: #f7931a;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #f7931a, #ffa500);
+        color: #fff;
+        padding: 40px 0;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 60vh;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/></svg>');
+        background-size: 20px 20px;
+        opacity: 0.3;
+      }
+
+      .hero-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background-color: #fff;
+        color: #f7931a;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #f7931a;
+        color: #fff;
+      }
+
+      /* Features Section */
+      .features {
+        background-color: #fff;
+        text-align: center;
+      }
+      .feature {
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        transition: all 0.3s;
+      }
+      .feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .feature-icon {
+        font-size: 3rem;
+        color: #f7931a;
+        margin-bottom: 15px;
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        background-color: #f8f8f8;
+        overflow: hidden;
+      }
+      .steps {
+        position: relative;
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 1;
+      }
+      .step-number {
+        background-color: #f7931a;
+        color: #fff;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.5rem;
+        margin-right: 20px;
+        flex-shrink: 0;
+      }
+      .step-content {
+        flex-grow: 1;
+      }
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 30px;
+        width: 2px;
+        background-color: #f7931a;
+        z-index: 0;
+      }
+
+      /* Benefits Section */
+      .benefits {
+        background-color: #fff;
+        text-align: center;
+      }
+      .benefit {
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        transition: all 0.3s;
+      }
+      .benefit:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .benefit-icon {
+        font-size: 2.5rem;
+        color: #f7931a;
+        margin-bottom: 15px;
+      }
+
+      /* Stats Section */
+      .stats {
+        background: linear-gradient(135deg, #f7931a, #ff7e5f);
+        color: #fff;
+        text-align: center;
+        overflow: hidden;
+      }
+      .stat {
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+      .stat.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stat-number {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      /* FAQ Section */
+      .faq {
+        background-color: #f8f8f8;
+        padding: 60px 0;
+      }
+      .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      .faq-item {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .faq-item:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .faq-question {
+        font-weight: bold;
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid transparent;
+      }
+      .faq-question::after {
+        content: "+";
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+      .faq-question.active {
+        background-color: #f7931a;
+        color: #fff;
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+      }
+      .faq-question.active::after {
+        transform: rotate(45deg);
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, padding 0.5s ease;
+      }
+      .faq-answer-content {
+        padding: 0 20px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .faq-answer.active {
+        max-height: 1000px;
+      }
+      .faq-answer.active .faq-answer-content {
+        padding: 20px;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Sign Up Section */
+      .sign-up {
+        background: linear-gradient(135deg, #f7931a, #ff7e5f);
+        color: #fff;
+        text-align: center;
+      }
+      .sign-up-form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .sign-up-form input {
+        padding: 15px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+      }
+      .sign-up-form button {
+        background-color: #fff;
+        color: #f7931a;
+        border: none;
+        padding: 15px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .sign-up-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Footer */
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 40px 0;
+      }
+      .footer-links {
+        margin-top: 20px;
+      }
+      .footer-links a {
+        margin: 0 15px;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: #f7931a;
+      }
+
+      /* Media Queries for larger screens */
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 3.5rem;
+        }
+        h2 {
+          font-size: 2.5rem;
+        }
+        .nav-toggle {
+          display: none;
+        }
+        .nav {
+          display: block;
+          position: static;
+          box-shadow: none;
+          margin-left: auto;
+        }
+        .nav ul {
+          display: flex;
+          justify-content: flex-end;
+        }
+        .nav li {
+          padding: 0;
+          margin-left: 30px;
+          border: none;
+        }
+        .features-grid,
+        .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+        }
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 30px;
+        }
+        .faq-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 30px;
+        }
+        .sign-up-form {
+          flex-direction: row;
+        }
+        .sign-up-form input {
+          flex-grow: 1;
+          margin-bottom: 0;
+          margin-right: 15px;
+        }
+        .steps::before {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .step {
+          width: 50%;
+          margin-left: 50%;
+          padding-left: 30px;
+        }
+        .step:nth-child(even) {
+          margin-left: 0;
+          padding-right: 30px;
+          text-align: right;
+          flex-direction: row-reverse;
+        }
+        .step:nth-child(even) .step-number {
+          margin-right: 0;
+          margin-left: 20px;
+        }
+        .hero {
+          padding: 100px 0;
+          min-height: 80vh;
+        }
+
+        .hero-title {
+          font-size: 3.5rem;
+          margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+          margin-bottom: 40px;
+        }
+
+        .cta-button {
+          padding: 15px 40px;
+          font-size: 1.2rem;
+        }
+        .header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .nav {
+          margin-left: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">Satofit</a>
+          <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+          <nav class="nav">
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#benefits">Benefits</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#sign-up">Sign Up</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content container">
+          <div class="hero-text">
+            <h1 class="hero-title">Walk Your Way to Bitcoin Wealth</h1>
+            <p class="hero-subtitle">
+              Turn every 4,000 steps into Satoshis with Satofit. Boost your
+              health and your crypto wallet!
+            </p>
+            <a href="#sign-up" class="cta-button">Start Earning Now</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section features">
+        <div class="container">
+          <h2>Features</h2>
+          <div class="features-grid">
+            <div class="feature">
+              <div class="feature-icon">👣</div>
+              <h3>Step Tracking</h3>
+              <p>Accurately counts your steps throughout the day</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">⚡</div>
+              <h3>Sats Rewards</h3>
+              <p>Earn Sats for every 4,000 steps you take</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">📱</div>
+              <h3>Sleek Mobile App</h3>
+              <p>User-friendly app for iOS and Android</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="section how-it-works">
+        <div class="container">
+          <h2>How It Works</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h3>Download & Sign Up</h3>
+                <p>Get the Satofit app and create your account in seconds</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h3>Walk 4,000 Steps</h3>
+                <p>Let the app track your steps as you go about your day</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h3>Stack Sats</h3>
+                <p>Watch a quick ad and claim your Sats reward</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h3>Withdraw to Your Wallet</h3>
+                <p>Transfer your earned Sats to any Bitcoin wallet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="benefits" class="section benefits">
+        <div class="container">
+          <h2>Benefits</h2>
+          <div class="benefits-grid">
+            <div class="benefit">
+              <div class="benefit-icon">💪</div>
+              <h3>Get Fit</h3>
+              <p>Boost your health by increasing daily activity</p>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">🧠</div>
+              <h3>Learn Bitcoin</h3>
+              <p>Gain hands-on experience with cryptocurrency</p>
+            </div>
+            <div class="benefit">
+              <div class="benefit-icon">💰</div>
+              <h3>Stack Sats</h3>
+              <p>Accumulate Bitcoin for your everyday activities</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section stats">
+        <div class="container">
+          <h2>Satofit in Numbers</h2>
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-number">1M+</div>
+              <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">10B+</div>
+              <div class="stat-label">Steps Tracked</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">100M+</div>
+              <div class="stat-label">Sats Rewarded</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Countries</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="section faq">
+        <div class="container">
+          <h2>FAQ</h2>
+          <div class="faq-grid">
+            <div class="faq-item">
+              <div class="faq-question">How do I start earning Sats?</div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Download Satofit, create an account, and start walking.
+                    You'll earn Sats for every 4,000 steps.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">Where is Satofit available?</div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Satofit is live in over 50 countries, and we're expanding
+                    rapidly!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">How do I cash out my Sats?</div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Transfer your Sats to any Bitcoin wallet using the Lightning
+                    Network QR code in the app.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">Is my data safe?</div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    We use state-of-the-art encryption and never share your
+                    personal info.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">How many Sats can I earn per day?</div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    The amount varies, but on average, users can earn between
+                    500-1000 Sats per day by reaching their step goals.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Do I need to have Bitcoin knowledge to use Satofit?
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Not at all! Satofit is designed for both Bitcoin beginners
+                    and experts. We provide easy-to-understand information to
+                    help you learn as you earn.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Can I use Satofit with my fitness tracker?
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Yes, Satofit integrates with popular fitness trackers and
+                    smartwatches to ensure accurate step counting.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Are there any fees for using Satofit?
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  <p>
+                    Satofit is free to use. We make money through the ads you
+                    watch, allowing us to reward you with Sats without any fees.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sign-up" class="section sign-up">
+        <div class="container">
+          <h2>Get Early Access</h2>
+          <p>
+            Be the first to know when Satofit drops and get exclusive perks!
+          </p>
+          <form class="sign-up-form">
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit">Join the Waitlist</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Satofit. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile navigation toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      const nav = document.querySelector(".nav");
+
+      navToggle.addEventListener("click", () => {
+        nav.classList.toggle("active");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // FAQ accordion
+      const faqItems = document.querySelectorAll(".faq-item");
+      faqItems.forEach((item) => {
+        const question = item.querySelector(".faq-question");
+        const answer = item.querySelector(".faq-answer");
+        const answerContent = item.querySelector(".faq-answer-content");
+
+        question.addEventListener("click", () => {
+          const isOpen = question.classList.contains("active");
+
+          // Close all FAQ items
+          faqItems.forEach((faqItem) => {
+            const faqQuestion = faqItem.querySelector(".faq-question");
+            const faqAnswer = faqItem.querySelector(".faq-answer");
+            const faqAnswerContent = faqItem.querySelector(
+              ".faq-answer-content"
+            );
+
+            faqQuestion.classList.remove("active");
+            faqAnswer.classList.remove("active");
+            faqAnswerContent.style.opacity = "0";
+            faqAnswerContent.style.transform = "translateY(-10px)";
+          });
+
+          // Open the clicked item if it wasn't already open
+          if (!isOpen) {
+            question.classList.add("active");
+            answer.classList.add("active");
+            setTimeout(() => {
+              answerContent.style.opacity = "1";
+              answerContent.style.transform = "translateY(0)";
+            }, 50);
+          }
+        });
+      });
+
+      // Stats animation
+      const stats = document.querySelectorAll(".stat");
+      const observerOptions = {
+        threshold: 0.5,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      stats.forEach((stat) => {
+        observer.observe(stat);
+      });
+
+      // Form submission (you would typically send this data to a server)
+      const form = document.querySelector(".sign-up-form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = form.querySelector('input[type="email"]').value;
+        alert(
+          `Thanks for joining the waitlist! We'll keep you updated about Satofit's launch.`
+        );
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
